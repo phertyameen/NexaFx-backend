@@ -13,6 +13,7 @@ import { RefreshTokenDto } from './dto/refresh.token.dto';
 import { JwtAuthGuard } from './guard/jwt.auth.guard';
 import { ThrottleAuth } from 'src/common/decorators/throttle-auth.decorators';
 import { LinkWalletDto } from './dto/link-wallet.dto';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('auth')
 @ThrottleAuth()
@@ -59,6 +60,7 @@ export class AuthController {
   }
 
   //Protected Route Example
+  @ApiBearerAuth()
   @Post('profile')
   @UseGuards(JwtAuthGuard)
   getProfile(@Request() req) {

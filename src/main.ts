@@ -7,6 +7,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import rateLimit from 'express-rate-limit';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -56,6 +57,8 @@ async function bootstrap() {
       return exception;
     },
   });
+
+  app.use('/api/v1/fees', rateLimit({ windowMs: 60*1000, max: 30 }));
 
   app.setGlobalPrefix('api/v1');
 

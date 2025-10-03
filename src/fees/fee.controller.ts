@@ -16,6 +16,8 @@ import { Roles } from 'src/common/decorators/roles.decorators';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { UserRole } from 'src/user/entities/user.entity';
 import { FeeRule } from './entities/fee.entity';
+import { NoneGuard } from 'src/common/guards/none.guard';
+import { ApiOkResponse } from '@nestjs/swagger';
 
 @Controller('fees')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -24,6 +26,8 @@ export class FeeController {
   constructor(private readonly feeService: FeeService) {}
 
   @Get()
+  @ApiOkResponse({ description: 'List fees' })
+  @UseGuards(NoneGuard)
   async findAll(): Promise<FeeRule[]> {
     return await this.feeService.findAll();
   }

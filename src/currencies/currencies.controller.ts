@@ -18,9 +18,13 @@ import { UserRole } from 'src/user/entities/user.entity';
 import { JwtAuthGuard } from 'src/auth/guard/jwt.auth.guard';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { AuditInterceptor } from 'src/audit/audit.interceptor';
+import { ApiTags } from '@nestjs/swagger';
+import { NoneGuard } from 'src/common/guards/none.guard';
 
+@ApiTags('currencies')
 @Controller('currencies')
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(NoneGuard)
+// @UseGuards(JwtAuthGuard, RolesGuard)
 export class CurrenciesController {
   constructor(private readonly currenciesService: CurrenciesService) {}
 
